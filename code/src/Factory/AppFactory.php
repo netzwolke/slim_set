@@ -3,7 +3,6 @@
 namespace App\Factory;
 
 use DI\Bridge\Slim\Bridge;
-use App\Factory\Routes;
 
 
 class AppFactory

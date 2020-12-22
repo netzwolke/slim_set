@@ -9,6 +9,4 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = new AppFactory();
 $app->create();
-
-
 $app->run();
