@@ -4,14 +4,14 @@
 namespace App\Controller;
 
 
-use DI\Container;
+use Psr\Container\ContainerInterface;
 
 class BaseController
 {
 
     protected $container;
 
-    public function __construct(Container $container){
+    public function __construct(ContainerInterface $container){
         $this->container = $container;
     }
 }

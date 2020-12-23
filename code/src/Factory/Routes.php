@@ -22,7 +22,7 @@ class Routes
             return $response;
         });
         $app->get('/{name}',[ExampleController::class,'index']);
-
+        $app->get('/dash/{name}',[ExampleController::class,'dash']);
 
 
 
