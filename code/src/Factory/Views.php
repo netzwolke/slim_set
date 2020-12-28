@@ -5,13 +5,18 @@ namespace App\Factory;
 
 
 
+use Slim\App;
 use Slim\Views\Twig;
+use Slim\Views\TwigMiddleware;
+use function DI\factory;
 
 class Views
 {
-    public function __construct($container)
+    public function __construct(App $app)
     {
-        $container->set('views', $this->createTwig($container));
+        $container = $app->getContainer();
+        $container->set('view', $this->createTwig($container));
+        $app->add(TwigMiddleware::createFromContainer($app));
     }
     public function createTwig($container)
     {

@@ -3,6 +3,10 @@
 namespace App\Factory;
 
 use DI\Bridge\Slim\Bridge;
+use DI\ContainerBuilder;
+use Slim\Views\Twig;
+use Slim\Views\TwigMiddleware;
+use function DI\factory;
 
 
 class AppFactory
@@ -17,11 +21,26 @@ class AppFactory
     }
     public function create()
     {
-        $this->app = $this->createBridge();
+        $builder = new ContainerBuilder();
+        $builder->addDefinitions(
+            [
+                //Twig::class => factory([Twig::class,'create'])->parameter('loader',['path'=>'../src/View'])->parameter('settings',['settings'=> ['cache'=>false]]),
+                Twig::class => function()
+                {
+                    return Twig::create('../src/View',['cache'=>false]);
+                },
+                TwigMiddleware::class => function(){
+                    return TwigMiddleware::create($this,Twig::class);
+                }
+
+            ]
+        );
+        $containerBuilder = $builder->build();
+        $this->app = $this->createBridge($containerBuilder);
         $container = $this->app->getContainer();
         $this->createSettings($container);
+        $this->createTwig($this->app);
         $this->createRoutes($this->app);
-        $this->createTwig($container);
     }
 
     public function createSettings($container)
@@ -29,16 +48,16 @@ class AppFactory
         return new Settings($container);
     }
 
-    public function createBridge()
+    public function createBridge($containerBuilder)
     {
-        return Bridge::create();
+        return Bridge::create($containerBuilder);
     }
     public function createRoutes($container)
     {
         return new Routes($container);
     }
-    public function createTwig($container)
+    public function createTwig($app)
     {
-        return new Views($container);
+        return new Views($app);
     }
 }

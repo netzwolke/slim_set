@@ -16,6 +16,6 @@ class ExampleController extends BaseController
     }
     public function dash($response,$name)
     {
-        return $this->container->get('views')->render($response,'example/index.twig',compact('name'));
+        return $this->container->get('view')->render($response,'example/index.twig',compact('name'));
     }
 }
