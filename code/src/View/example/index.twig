@@ -1,5 +1,33 @@
+{% extends 'layout/app.twig' %}
+{% block title %} Example index{% endblock %}
 
-<h1>FUN</h1>
+{% block body %}<br><br>
+    <div class="container">
 
-<h2>{{ name }}</h2>
-<a href="{{ url_for('home') }}">Home</a>
+        <H1>Example Index</H1>
+
+
+
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Rolle</th>
+                            <th>Optionen</th>
+                        </tr>
+                    </thead>
+                {% for name in names %}
+                    <tr>
+                        <td>{{ name.name }}</td>
+                        <td>{{ name.rolle }}</td>
+                    </tr>
+                {% endfor %}
+
+                </table>
+
+
+
+
+    </div>
+
+{% endblock %}

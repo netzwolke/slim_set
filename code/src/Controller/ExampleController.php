@@ -4,6 +4,8 @@
 namespace App\Controller;
 
 
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface;
 use Slim\Views\Twig;
 
 class ExampleController extends BaseController
@@ -14,8 +16,18 @@ class ExampleController extends BaseController
         $response->getBody()->write("Hello dear $name");
         return $response;
     }
-    public function dash($response,$name)
+
+    public function dash($response,$name, Twig $sd)
     {
-        return $this->container->get('view')->render($response,'example/index.twig',compact('name'));
+        $names = [
+            ["name"=>"Peter",
+            "rolle"=>"Master",
+                ],
+            [
+                'name'=>'Ullrich',
+                'rolle'=>'Commander',
+            ]
+        ];
+        return $sd->render($response,'example/index.twig',compact('names'));
     }
 }

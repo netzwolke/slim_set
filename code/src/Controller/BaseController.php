@@ -14,7 +14,7 @@ class BaseController
 
     protected $container;
     /**
-     * @var Twig
+     * @var view
      */
     protected $twig;
     /**
@@ -22,11 +22,4 @@ class BaseController
      */
     protected $app;
 
-    public function __construct(ContainerInterface $container, Twig $twig,  App $app){
-        $this->container = $container;
-        $this->twig = $twig;
-        $this->app = $app;
-        //$this->app->getContainer()->set('view',$this->twig);
-        $this->app->add(TwigMiddleware::create($this->app,$this->twig));
-    }
 }
