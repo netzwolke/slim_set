@@ -2,14 +2,8 @@
 
 namespace App\Factory;
 
-use DI\Bridge\Slim\Bridge;
 use DI\Container;
-use DI\ContainerBuilder;
-use Psr\Container\ContainerInterface;
 use Slim\App;
-use Slim\Views\Twig;
-use function DI\factory;
-use function DI\get;
 
 
 class AppFactory
@@ -24,27 +18,17 @@ class AppFactory
     }
     public function create()
     {
-        $settings = new Container();
-        $this->createSettings($settings);
-        $builder = new ContainerBuilder();
-        $builder->wrapContainer($settings);
-        $builder->addDefinitions(
-            [
-                //Twig::class => factory([Twig::class,'create'])->parameter('path','../src/View')->parameter('settings',['cache'=>false]),
-                Twig::class => factory( function (ContainerInterface $container) {
-                    $config = $container->get('settings');
-                    $path = $config['view']['path'];
-                    $settings = $config['view']['settings'];
-                    return Twig::create($path,$settings);
-                }),
+        //Settings
+        $container = new Container();
+        $this->createSettings($container);
 
-            ]
-        );
-        $containerBuilder = $builder->build();
-        $this->app = $this->createBridge($containerBuilder);
+        //App with DI for Typehint
+        $this->app = $this->createDI($container);
+
+        //Load Libraries into App
         $this->createViews($this->app);
         $this->createRoutes($this->app);
-        $this->createEloquent($settings);
+        $this->createEloquent($container); //TODO: BS Container 
     }
 
     public function createSettings($container): Settings
@@ -52,9 +36,9 @@ class AppFactory
         return new Settings($container);
     }
 
-    public function createBridge($containerBuilder): App
+    public function createDI($container): App
     {
-        return Bridge::create($containerBuilder);
+        return (new DI())->createBridge($container);
     }
     public function createRoutes($app): Routes
     {

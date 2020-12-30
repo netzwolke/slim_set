@@ -11,7 +11,7 @@ use Slim\Views\TwigMiddleware;
 
 class Views
 {
-    public function __construct(App $app)
+    public function __construct($app)
     {
         $app->add($this->createTwig($app));
     }

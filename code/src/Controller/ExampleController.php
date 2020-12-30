@@ -17,7 +17,7 @@ class ExampleController extends BaseController
         return $response;
     }
 
-    public function dash($response,$name, Twig $sd)
+    public function dash($response,$name, Twig $sd, ContainerInterface $container)
     {
         $names = [
             ["name"=>"Peter",
@@ -28,6 +28,7 @@ class ExampleController extends BaseController
                 'rolle'=>'Commander',
             ]
         ];
-        return $sd->render($response,'example/index.twig',compact('names'));
+        $test = $container->get('settings');
+        return $sd->render($response,'example/index.twig',compact('names','test'));
     }
 }
