@@ -1,0 +1,49 @@
+{% extends 'layout/app.twig' %}
+{% block title %} Example index{% endblock %}
+
+{% block body %}<br><br>
+    <div class="container">
+
+        <H1>User Edit</H1>
+
+
+        <form method="POST" >
+            <table class="table">
+
+                <thead class="thead-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Rolle</th>
+                    <th>Optionen</th>
+                </tr>
+                </thead>
+                {% for user in users %}
+
+                        <tr>
+                            <td><input class="form-control" name='name' value="{{ user.name }}"></td>
+                            <td>
+                                <select class="form-select" name="role_id">
+                                    {% for role in roles %}
+                                        {% if role.id == user.role.id %}
+                                            <option value="{{ role.id }}" selected>{{ role.name }}</option>
+                                        {% else %}
+                                            <option value="{{ role.id }}">{{ role.name }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <td><button type="submit" class="btn btn-success"  formaction="{{ url_for('user.update',{'id':user.id})}}">Save</button>                  </td>
+
+                        </tr>
+
+                {% endfor %}
+
+            </table>
+            <input type="hidden" value="PUT" name='_METHOD'>
+        </form>
+<a href="{{ url_for('user.index') }}" class="btn btn-primary">Back</a>
+
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'layout/app.twig' %}
+{% block title %} Example index{% endblock %}
+
+{% block body %}<br><br>
+    <div class="container">
+
+        <H1>User Index</H1>
+
+
+
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th>Name</th>
+                <th>Power</th>
+                <th>Created</th>
+                <th>updated_at</th>
+            </tr>
+            </thead>
+            {% for user in users %}
+                <tr>
+                    <td><a href="{{ url_for('user.show',{'id':user.id}) }}">{{ user.name }}</a></td>
+                    <td>{{ user.role.name }}</td>
+                    <td>
+
+                        <form action="{{ url_for('user.delete',{'id':user.id}) }}" method="POST">
+                            <a class="btn btn-primary" href="{{ url_for('user.edit',{'id':user.id}) }}">Edit</a>
+                            <button type="submit" class="btn btn-danger">X</button>
+                            <input type="hidden" name="_METHOD" value="DELETE">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </table>
+        <a class="btn btn-secondary" href="{{ url_for('user.create') }}">New</a>
+
+
+
+
+    </div>
+
+{% endblock %}

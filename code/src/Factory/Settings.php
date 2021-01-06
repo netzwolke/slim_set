@@ -24,9 +24,9 @@ class Settings
                 'db'=>[
                     'driver'=>'mysql',
                     'host' => 'database',
-                    'database' => 'database',
-                    'username' => 'user',
-                    'password' => 'password',
+                    'database' => 'Example',
+                    'username' => 'root',
+                    'password' => '123456',
                     'charset'   => 'utf8',
                     'collation' => 'utf8_unicode_ci',
                     'prefix'    => '',

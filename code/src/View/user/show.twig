@@ -1,0 +1,36 @@
+{% extends 'layout/app.twig' %}
+{% block title %} Example index{% endblock %}
+
+{% block body %}<br><br>
+    <div class="container">
+
+        <H1>User Index</H1>
+
+
+
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Rolle</th>
+                <th>Power</th>
+            </tr>
+            </thead>
+
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.role.name }}</td>
+                    <td>{{ user.role.power }}</td>
+                </tr>
+
+        </table>
+        <a class="btn btn-secondary" href="{{ url_for('user.index') }}">Back</a>
+
+
+
+
+    </div>
+
+{% endblock %}
