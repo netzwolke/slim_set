@@ -13,13 +13,16 @@
             <tr>
                 <th>Name</th>
                 <th>Power</th>
-                <th>Options</th>
+                <th>Updated</th>
+                <th>Created</th>
             </tr>
             </thead>
-            {% for role in roles %}
                 <tr>
                     <td><a href="{{ url_for('role.show',{'id':role.id}) }}">{{ role.name }}</a></td>
                     <td>{{ role.power }}</td>
+                    <td>{{ role.updated_at }}</td>
+                    <td>{{ role.created_at }}</td>
+
                     <td>
 
                         <form action="{{ url_for('role.delete',{'id':role.id}) }}" method="POST">
@@ -29,10 +32,9 @@
                         </form>
                     </td>
                 </tr>
-            {% endfor %}
 
         </table>
-        <a class="btn btn-secondary" href="{{ url_for('role.create') }}">New</a>
+        <a class="btn btn-secondary" href="{{ url_for('role.index') }}">Back</a>
 
 
 
