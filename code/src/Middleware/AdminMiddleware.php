@@ -14,16 +14,15 @@ class AdminMiddleware
 {
     public function __invoke(Request $request, RequestHandler $handler):Response
     {
-        $response =  $handler->handle($request);
 
         if(Auth::isAdmin())
         {
-            return $response;
+            return $handler->handle($request);;
         }
         else {
             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-
-            return $response->withStatus(302)->withHeader('Location',$routeParser->urlFor('home'));
+            $response = $handler->handle($request);
+            return $response->withStatus(502)->withHeader('Location',$routeParser->urlFor('home'));
 
         }
     }

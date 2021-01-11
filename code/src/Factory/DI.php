@@ -14,6 +14,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorInterface;
 use Slim\Interfaces\RouteParserInterface;
+use Slim\Routing\RouteCollector;
 use Slim\Routing\RouteContext;
 use Slim\Routing\RouteParser;
 use Slim\Views\Twig;
@@ -59,9 +60,6 @@ class DI
                     $twig->addRuntimeLoader($loader);
                     $twig->addExtension($extension);
                     return $twig;
-                }),
-                RouteParser::class => factory(function (ContainerInterface $container) {
-                    return $container->get(RouteCollector::class)->getRouteParser();
                 }),
 
 

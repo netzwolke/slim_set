@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Model\Role;
 use App\Model\User;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Factory\Psr17\ServerRequestCreator;
@@ -31,7 +32,7 @@ class UserController
         $users = User::all();
         return $twig->render($response, 'user/index.twig', compact("users"));
     }
-    public function update($request, $response, $id)
+    public function update($request, $response, $id, RouteParserInterface $parser)
     {
         // Find User
         $user = User::find($id);
@@ -46,9 +47,8 @@ class UserController
         $user->save();
 
         //Redirect to Index
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-        $url = $routeParser->urlFor('user.index');
-        return $response->withHeader('Location', $url);
+
+        return $response->withHeader('Location', $parser->urlFor('user.index'));
     }
 
     public function create($response, Twig $twig)
@@ -57,24 +57,20 @@ class UserController
         return $twig->render($response, 'user/create.twig', compact('roles'));
     }
 
-    public function store(ServerRequestInterface $request, $response): ResponseInterface
+    public function store(ServerRequestInterface $request, $response, RouteParserInterface $parser): ResponseInterface
     {
         $create = $request->getParsedBody();
         $password = $create['password'];
         $create['password'] = password_hash($password, PASSWORD_BCRYPT, ['cost'=>12]);
         User::create($create);
 
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-        $url = $routeParser->urlFor('user.index');
-        return $response->withHeader('Location', $url);
+        return $response->withHeader('Location', $parser->urlFor('user.index'));
     }
 
-    public function delete($request, $response, $id)
+    public function delete($request, $response, $id, RouteParserInterface $parser)
     {
         User::destroy($id);
-        $routeParser = $request->getAttribute(RouteContext::ROUTE_PARSER);
-        $url = $routeParser->urlFor('user.index');
-        return $response->withHeader('Location', $url);
+        return $response->withHeader('Location', $parser->urlFor('user.index'));
     }
 
     public function show($response, $id, Twig $twig)

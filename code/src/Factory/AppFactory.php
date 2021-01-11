@@ -54,7 +54,7 @@ class AppFactory
         return new Model($container);
     }//end createEloquent()
 
-    public function createMiddleware(App $app)
+    public function createMiddleware(App $app): Middleware
     {
         return new Middleware($app);
     }

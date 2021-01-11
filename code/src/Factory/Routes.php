@@ -8,7 +8,10 @@ use App\Controller\AuthController;
 use App\Controller\RoleController;
 use App\Controller\UserController;
 use App\Middleware\AdminMiddleware;
+use App\Resources\Redirect;
+use Psr\Container\ContainerInterface;
 use Slim\App;
+use Slim\Interfaces\RouteParserInterface;
 use Slim\Routing\RouteCollectorProxy;
 
 class Routes
@@ -16,6 +19,12 @@ class Routes
     public function __construct(App $app)
     {
         $this->setRoutes($app);
+        $this->setRouteParser($app);
+    }
+
+    public function setRouteParser(App $app)
+    {
+        $app->getContainer()->set(RouteParserInterface::class, $app->getRouteCollector()->getRouteParser());
     }
 
 
