@@ -20,8 +20,12 @@
             </thead>
             <tr>
                 <form method="POST" autocomplete="off">
-                    <td><input class="form-control" name='name' placeholder="Name" autocomplete="off" value="{{ role.name }}"></td>
-                    <td><input class="form-control" name="power" type="number" autocomplete="off" value="{{ role.power }}"></td>
+                    <td><label>
+                            <input class="form-control" name='name' placeholder="Name" autocomplete="off" value="{{ role.name }}">
+                        </label></td>
+                    <td><label>
+                            <input class="form-control" name="power" type="number" autocomplete="off" value="{{ role.power }}">
+                        </label></td>
                     <td><button type="submit" class="btn btn-success"  formaction="{{ url_for('role.update',{'id':role.id})}}">Save</button>
                     <input type="hidden" name="_METHOD" value="PUT">
                     </td>

@@ -4,19 +4,12 @@ namespace App\Factory;
 
 use App\Factory\Twig\TwigExtension;
 use App\Factory\Twig\TwigRuntimeLoader;
-use App\Resources\Redirect;
+use App\Resources\Logger;
 use DI\Bridge\Slim\Bridge;
 use DI\Container;
 use DI\ContainerBuilder;
 use Psr\Container\ContainerInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Slim\App;
-use Slim\Interfaces\RouteCollectorInterface;
-use Slim\Interfaces\RouteParserInterface;
-use Slim\Routing\RouteCollector;
-use Slim\Routing\RouteContext;
-use Slim\Routing\RouteParser;
 use Slim\Views\Twig;
 use function DI\create;
 use function DI\factory;
@@ -50,7 +43,12 @@ class DI
     {
         return
             [
-                TwigRuntimeLoader::class => create(),
+                Logger::class => factory( function()
+                {
+                    return Logger::create();
+                }),
+
+                TwigRuntimeLoader::class => create()->constructor(Logger::class),
                 TwigExtension::class => create(),
                 Twig::class => factory(function (ContainerInterface $container, TwigExtension $extension, TwigRuntimeLoader $loader) {
                     $config = $container->get('settings');

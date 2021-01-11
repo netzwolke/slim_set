@@ -54,7 +54,7 @@ class RoleController
     public function edit($response, $id, Twig $twig): ResponseInterface
     {
         $role = Role::find($id);
-        return $twig->render($response, 'role/edit.twig',compact('role'));
+        return $twig->render($response, 'role/edit.html.twig',compact('role'));
     }
 
     /**

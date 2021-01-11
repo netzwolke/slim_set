@@ -5,6 +5,9 @@ namespace App\Factory;
 
 
 
+use App\Resources\Logger;
+use Psr\Container\ContainerInterface;
+
 class Settings
 {
     public function __construct($container)
@@ -12,7 +15,7 @@ class Settings
 
         $this->setSettings($container);
     }
-    public function setSettings($container)
+    private function setSettings($container)
     {
         $container->set(
             'settings',
@@ -34,4 +37,5 @@ class Settings
             ]
         );
     }
+
 }

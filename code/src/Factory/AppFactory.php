@@ -8,7 +8,7 @@ use Slim\App;
 class AppFactory
 {
 
-    private $app;
+    private App $app;
 
 
     public function run()

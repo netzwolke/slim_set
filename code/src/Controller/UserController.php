@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Model\Role;
 use App\Model\User;
+use App\Resources\Logger;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -13,24 +14,27 @@ use Slim\Interfaces\RouteParserInterface;
 use Slim\Routing\RouteContext;
 use Slim\Routing\RouteParser;
 use Slim\Views\Twig;
+use function PHPUnit\Framework\throwException;
 
 class UserController
 {
 
+
+
+    public function index($response, Twig $twig, Logger $logger): ResponseInterface
+    {
+        $logger->addError('Test');
+        $users = User::all();
+
+        return $twig->render($response, 'user/index.twig', compact("users"));
+    }
 
     public function edit($response, $id, Twig $twig): ResponseInterface
     {
         $user = User::find($id);
         $roles = Role::all();
 
-        return $twig->render($response, 'user/edit.twig', compact('user', 'roles'));
-    }
-
-    public function index($response, Twig $twig): ResponseInterface
-    {
-
-        $users = User::all();
-        return $twig->render($response, 'user/index.twig', compact("users"));
+        return $twig->render($response, 'user/edit.html.twig', compact('user', 'roles'));
     }
     public function update($request, $response, $id, RouteParserInterface $parser)
     {
