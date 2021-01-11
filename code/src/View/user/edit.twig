@@ -4,7 +4,7 @@
 {% block body %}<br><br>
     <div class="container">
 
-        <H1>User Edit</H1>
+        <H1>Edit {{ user.name }}</H1>
 
 
         <form method="POST" autocomplete="off">
@@ -13,14 +13,15 @@
                 <thead class="thead-light">
                 <tr>
                     <th>Name</th>
-                    <th>Rolle</th>
-                    <th>Optionen</th>
+                    <th>Password</th>
+                    <th>Role</th>
+                    <th>Options</th>
                 </tr>
                 </thead>
-                {% for user in users %}
-
                         <tr>
                             <td><input class="form-control" name='name' value="{{ user.name }}"></td>
+                            <td><input class="form-control" name="password" type="password" placeholder="..."></td>
+
                             <td>
                                 <select class="form-select" name="role_id">
                                     {% for role in roles %}
@@ -36,7 +37,6 @@
 
                         </tr>
 
-                {% endfor %}
 
             </table>
             <input type="hidden" value="PUT" name='_METHOD'>

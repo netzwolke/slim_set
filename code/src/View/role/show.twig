@@ -4,7 +4,7 @@
 {% block body %}<br><br>
     <div class="container">
 
-        <H1>User Index</H1>
+        <H1>Role {{ role.name }}</H1>
 
 
 
@@ -17,21 +17,21 @@
                 <th>Created</th>
             </tr>
             </thead>
-                <tr>
-                    <td><a href="{{ url_for('role.show',{'id':role.id}) }}">{{ role.name }}</a></td>
-                    <td>{{ role.power }}</td>
-                    <td>{{ role.updated_at }}</td>
-                    <td>{{ role.created_at }}</td>
+            <tr>
+                <td><a href="{{ url_for('role.show',{'id':role.id}) }}">{{ role.name }}</a></td>
+                <td>{{ role.power }}</td>
+                <td>{{ role.updated_at }}</td>
+                <td>{{ role.created_at }}</td>
 
-                    <td>
+                <td>
 
-                        <form action="{{ url_for('role.delete',{'id':role.id}) }}" method="POST">
-                            <a class="btn btn-primary" href="{{ url_for('role.edit',{'id':role.id}) }}">Edit</a>
-                            <button type="submit" class="btn btn-danger">X</button>
-                            <input type="hidden" name="_METHOD" value="DELETE">
-                        </form>
-                    </td>
-                </tr>
+                    <form action="{{ url_for('role.delete',{'id':role.id}) }}" method="POST">
+                        <a class="btn btn-primary" href="{{ url_for('role.edit',{'id':role.id}) }}">Edit</a>
+                        <button type="submit" class="btn btn-danger">X</button>
+                        <input type="hidden" name="_METHOD" value="DELETE">
+                    </form>
+                </td>
+            </tr>
 
         </table>
         <a class="btn btn-secondary" href="{{ url_for('role.index') }}">Back</a>

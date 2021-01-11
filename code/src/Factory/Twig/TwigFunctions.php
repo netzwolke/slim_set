@@ -3,7 +3,7 @@
 
 namespace App\Factory\Twig;
 
-use App\Factory\Auth\Session;
+use App\Auth\Session;
 
 class TwigFunctions
 {
@@ -11,9 +11,9 @@ class TwigFunctions
     {
         return "Example own Function";
     }
-    public function auth($user) :bool
+    public function auth() :bool
     {
-        return false;
+        return Session::isAuth();
     }
     public function getUser()
     {

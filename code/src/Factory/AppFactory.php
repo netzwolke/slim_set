@@ -24,8 +24,8 @@ class AppFactory
         $this->createSettings($container);
 
         // App with DI for Typehint!
-        $this->app = $this->createDI($container);
-
+        $DI = $this->createDI($container);
+        $this->app = $DI->getApp();
 
         // Load Libraries into App!
         $this->createRoutes($this->app);
@@ -39,9 +39,9 @@ class AppFactory
         return new Settings($container);
     }//end createSettings()
 
-    public function createDI($container): App
+    public function createDI($container): DI
     {
-        return (new DI())->createBridge($container);
+        return new DI($container);
     }//end createDI()
 
     public function createRoutes($app): Routes

@@ -4,7 +4,7 @@
 namespace App\Factory;
 
 
-use App\Factory\Middleware\SessionMiddleware;
+use App\Middleware\SessionMiddleware;
 use Slim\App;
 use Slim\Middleware\MethodOverrideMiddleware;
 use Slim\Views\Twig;
@@ -44,6 +44,6 @@ class Middleware
 
     public function createSessionMiddleware()
     {
-        return new SessionMiddleware();
+        return SessionMiddleware::class;
     }
 }

@@ -1,0 +1,36 @@
+{% extends 'layout/app.twig' %}
+{% block title %} Edit Role{% endblock %}
+
+{% block body %}<br><br>
+    <div class="container">
+
+        <H1>Edit Role</H1>
+
+
+
+
+        <table class="table">
+
+            <thead class="thead-light">
+            <tr>
+                <th>Name</th>
+                <th>Power</th>
+                <th>Options</th>
+            </tr>
+            </thead>
+            <tr>
+                <form method="POST" autocomplete="off">
+                    <td><input class="form-control" name='name' placeholder="Name" autocomplete="off" value="{{ role.name }}"></td>
+                    <td><input class="form-control" name="power" type="number" autocomplete="off" value="{{ role.power }}"></td>
+                    <td><button type="submit" class="btn btn-success"  formaction="{{ url_for('role.update',{'id':role.id})}}">Save</button>
+                    <input type="hidden" name="_METHOD" value="PUT">
+                    </td>
+                </form>
+            </tr>
+
+        </table>
+
+        <a class="btn btn-primary" href="{{ url_for('role.index') }}">Back</a>
+    </div>
+
+{% endblock %}

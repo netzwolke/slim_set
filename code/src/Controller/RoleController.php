@@ -3,10 +3,10 @@
 
 namespace App\Controller;
 
-
 use App\Interfaces\Controller;
 use App\Model\Role;
 use Psr\Http\Message\ResponseInterface;
+use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
 class RoleController
@@ -30,40 +30,56 @@ class RoleController
     /**
      * @return ResponseInterface
      */
-    public function create(): ResponseInterface
+    public function create($response, Twig $twig): ResponseInterface
     {
-        // TODO: Implement create() method.
+        return $twig->render($response, 'role/create.twig');
     }
 
     /**
      * @return ResponseInterface
      */
-    public function store(): ResponseInterface
+    public function store($request, $response): ResponseInterface
     {
-        // TODO: Implement store() method.
+        $create = $request->getParsedBody();
+        Role::create($create);
+
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $url = $routeParser->urlFor('role.index');
+        return $response->withHeader('Location', $url);
     }
 
     /**
      * @return ResponseInterface
      */
-    public function edit(): ResponseInterface
+    public function edit($response, $id, Twig $twig): ResponseInterface
     {
-        // TODO: Implement edit() method.
+        $role = Role::find($id);
+        return $twig->render($response, 'role/edit.twig',compact('role'));
     }
 
     /**
      * @return ResponseInterface
      */
-    public function update(): ResponseInterface
+    public function update($request, $response, $id): ResponseInterface
     {
-        // TODO: Implement update() method.
+        $role = Role::find($id);
+        $update = $request->getParsedBody();
+        $role->fill($update);
+        $role->save();
+
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $url = $routeParser->urlFor('role.index');
+        return $response->withHeader('Location', $url);
     }
 
     /**
      * @return ResponseInterface
      */
-    public function delete(): ResponseInterface
+    public function delete($request, $response, $id): ResponseInterface
     {
-        // TODO: Implement delete() method.
+        Role::destroy($id);
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $url = $routeParser->urlFor('role.index');
+        return $response->withHeader('Location', $url);
     }
 }
