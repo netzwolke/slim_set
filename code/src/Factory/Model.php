@@ -4,9 +4,9 @@
 namespace App\Factory;
 
 
-use Illuminate\Container\Container;
+use Illuminate\Container\Container as IlluminateContainer;
 use Illuminate\Database\ConnectionResolver;
-use Illuminate\Database\Connectors\ConnectionFactory;
+use Illuminate\Database\Connectors\ConnectionFactory as IlluminateConnectionFactory;
 use Illuminate\Database\Eloquent\Model as IlluminateModel;
 use Psr\Container\ContainerInterface;
 
@@ -21,8 +21,8 @@ class Model
     {
         $config = $container->get('settings');
         $settings = $config['db'];
-        $container = new Container;
-        $connFactory = new ConnectionFactory($container);
+        $container = new IlluminateContainer();
+        $connFactory = new IlluminateConnectionFactory($container);
         $conn = $connFactory->make($settings);
         $resolver = new ConnectionResolver();
         $resolver->addConnection('default', $conn);
