@@ -3,7 +3,6 @@
 
 namespace App\Controller;
 
-use App\Interfaces\Controller;
 use App\Model\Role;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Routing\RouteContext;

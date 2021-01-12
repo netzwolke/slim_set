@@ -7,20 +7,25 @@
     </div>
 {% endif %}
 
-{% if hasMessage('Danger') %}
+{% if hasMessage('Warning') %}
     <div class="alert alert-warning alert-dismissible fade show">
-        {% for danger in getMessage('Danger') %}
-            {{ danger }}
+        {% for warning in getMessage('Warning') %}
+            {{ warning }}
         {% endfor %}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 {% endif %}
 
 {% if hasMessage('Success') %}
+
+    {% for success in getMessage('Success') %}
+
     <div class="alert alert-success alert-dismissible fade show">
-        {% for success in getMessage('Success') %}
-            {{ success }}
-        {% endfor %}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+    {{ success }}
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+    {% endfor %}
+
 {% endif %}

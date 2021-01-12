@@ -9,11 +9,11 @@ class Message implements OutputMessageInterface
 
     private array $Messages;
 
-    public function __construct($errors = [], $dangers = [], $successes = [])
+    public function __construct($errors = [], $warnings = [], $successes = [])
     {
         $this->Messages = [
             self::Error => $errors,
-            self::Danger => $dangers,
+            self::Warning => $warnings,
             self::Success => $successes
         ];
     }

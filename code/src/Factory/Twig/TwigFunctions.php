@@ -37,7 +37,9 @@ class TwigFunctions
 
     public function getMessage($type)
     {
-        return $this->messenger->get($type);
+        $message =  $this->messenger->get($type);
+        $this->messenger->clear($type);
+        return $message;
     }
 
 

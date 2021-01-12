@@ -34,4 +34,10 @@ class History
         }
         return $urls;
     }
+
+    public function getLastUrl()
+    {
+        $urls = Session::get(self::history);
+        return end($urls);
+    }
 }

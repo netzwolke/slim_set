@@ -12,7 +12,11 @@ class Messenger implements OutputMessageInterface
 
     public function __construct(Message $message)
     {
+        if(!Session::has(self::key))
+        {
             Session::set(self::key, $message);
+
+        }
     }
 
     /**
@@ -28,9 +32,9 @@ class Messenger implements OutputMessageInterface
     {
         $this->add(self::Error, $message);
     }
-    public function addDanger($message)
+    public function addWarning($message)
     {
-        $this->add(self::Danger, $message);
+        $this->add(self::Warning, $message);
     }
     public function addSuccess($message)
     {
@@ -49,11 +53,7 @@ class Messenger implements OutputMessageInterface
         $message =  Session::get(self::key);
 
         //Get Type of Message
-        $output = $message->get($type);
-
-        //Clear Message Array
-        $message->clear($type);
-        return $output;
+        return $message->get($type);
     }
 
     public function has($type): bool
@@ -69,5 +69,14 @@ class Messenger implements OutputMessageInterface
         }
         return false;
 
+    }
+
+    public function clear($type)
+    {
+        //get Message in Session
+        $message = Session::get(self::key);
+
+        //Clear Message Array for $type
+        $message->clear($type);
     }
 }

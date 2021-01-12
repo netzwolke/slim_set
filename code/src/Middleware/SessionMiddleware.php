@@ -26,13 +26,14 @@ class SessionMiddleware
         //Start Session
         Session::startSession();
 
+        $response = $handler->handle($request);
         //save Browsing history
         if($request->getMethod() == 'GET')
         {
             $this->history->addUrl($request->getUri());
         }
 
-        return $handler->handle($request);
+        return $response;
     }
 
 }

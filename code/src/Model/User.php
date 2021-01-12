@@ -21,15 +21,27 @@ class User extends Model
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }//end role
 
-    public function setPassword($validate)
+    public function makePassword($password = null)
     {
-        if(isset($validate['password']))
-        {
-            $password = $validate['password'];
-            $password= password_hash($password, PASSWORD_BCRYPT, ['cost'=>12]);
-
+        if($password != null){
+            {
+                $this->password = password_hash($password, PASSWORD_BCRYPT, ['cost'=>12]);
+                return true;
+            }
         }
-        return $password;
+        return false;
+
+    }
+
+
+    public function fill(array $attributes): User
+    {
+        if(isset($attributes['password']) && $attributes != '')
+        {
+            $this->makePassword($attributes['password']);
+        }
+        unset($attributes['password']);
+        return parent::fill($attributes);
     }
 
     public function validate(array $validate)

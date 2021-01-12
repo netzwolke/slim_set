@@ -21,10 +21,10 @@ class UserController
     public function index($response, Twig $twig, Messenger $messenger, History $history): ResponseInterface
     {
 
-        $messenger->add('Error','titit');
-        $messenger->add(Messenger::Danger,'titit');
-        $messenger->add(Messenger::Success,'titit');
-        $messenger->addSuccess($history->getUrlStrings());
+        $messenger->add('Error','Error');
+        $messenger->add(Messenger::Warning,'Danger');
+        $messenger->addSuccess('Last URL: ' . $history->getLastUrl());
+        $messenger->addSuccess(User::all()->toJson());
         $users = User::all();
 
         return $twig->render($response, 'user/index.twig', compact("users"));
@@ -34,10 +34,9 @@ class UserController
     {
         $user = User::find($id);
         $roles = Role::all();
-
         return $twig->render($response, 'user/edit.twig', compact('user', 'roles'));
     }
-    public function update($request, $response, $id, RouteParserInterface $parser)
+    public function update($request, $response, $id, RouteParserInterface $parser, Messenger $messenger)
     {
         // Find User
         $user = User::find($id);
@@ -49,11 +48,8 @@ class UserController
         // Update User with Array
         $user->fill($update);
 
-        // Generate Hash Password
-        $user->setPassword($update['password']);
-
         $user->save();
-
+        $messenger->addSuccess("$user->name updated successfully!");
         //Redirect to Index
 
         return $response->withHeader('Location', $parser->urlFor('user.index'));
