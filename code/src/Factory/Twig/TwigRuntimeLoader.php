@@ -3,19 +3,20 @@
 
 namespace App\Factory\Twig;
 
-use App\Resources\Logger;
+use App\Resources\Output\Messenger;
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
 
 class TwigRuntimeLoader implements RuntimeLoaderInterface
 {
-    /**
-     * @var Logger
-     */
-    private Logger $logger;
 
-    public function __construct(Logger $logger)
+    /**
+     * @var Messenger
+     */
+    private Messenger $messageOutput;
+
+    public function __construct(Messenger $messageOutput)
     {
-        $this->logger = $logger;
+        $this->messageOutput = $messageOutput;
     }
 
     /**
@@ -24,7 +25,7 @@ class TwigRuntimeLoader implements RuntimeLoaderInterface
     public function load(string $class)
     {
         if (TwigFunctions::class === $class) {
-            return new $class($this->logger);
+            return new $class($this->messageOutput);
         }
     }
 }

@@ -44,4 +44,31 @@ class Session
         }
         return $_SESSION['user'];
     }
+
+    public static function set($name, $value)
+    {
+        $_SESSION[$name] = $value;
+    }
+    public static function add($name, $value)
+    {
+            $_SESSION[$name][]= $value;
+
+    }
+    public static function get($name)
+    {
+        return $_SESSION[$name];
+    }
+    public static function remove($name)
+    {
+        unset($_SESSION[$name]);
+    }
+    public static function has($name): bool
+    {
+        if(isset($_SESSION[$name]))
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -14,8 +14,8 @@ class TwigExtension extends AbstractExtension
             new TwigFunction('example', [TwigFunctions::class,'example']),
             new TwigFunction('auth', [TwigFunctions::class,'auth']),
             new TwigFunction('getUser', [TwigFunctions::class,'getUser']),
-            new TwigFunction('getErrors',[TwigFunctions::class, 'getErrors']),
-            new TwigFunction('getSuccesses',[TwigFunctions::class, 'getSuccesses']),
+            new TwigFunction('getMessage',[TwigFunctions::class, 'getMessage']),
+            new TwigFunction('hasMessage',[TwigFunctions::class, 'hasMessage']),
 
         ];
     }

@@ -5,7 +5,7 @@ namespace App\Factory;
 
 
 
-use App\Resources\Logger;
+use App\Resources\Message;
 use Psr\Container\ContainerInterface;
 
 class Settings

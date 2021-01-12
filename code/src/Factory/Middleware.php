@@ -31,6 +31,9 @@ class Middleware
 
         //Add SessionMiddleware
         $app->add($this->createSessionMiddleware());
+
+        //Add ErrorMiddleware
+        $app->addErrorMiddleware(true, true, true);
     }
     public function createMethodOverrideMiddleware(): MethodOverrideMiddleware
     {

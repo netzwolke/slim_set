@@ -4,15 +4,20 @@
 namespace App\Factory\Twig;
 
 use App\Auth\Session;
-use App\Resources\Logger;
+use App\Resources\Output\Messenger;
 
 class TwigFunctions
 {
-    public function __construct(Logger $logger)
+    /**
+     * @var Messenger
+     */
+    private Messenger $messenger;
+
+    public function __construct(Messenger $messenger)
     {
-        $this->Logger = $logger;
+        $this->messenger = $messenger;
     }
-    public function example()
+    public function example(): string
     {
         return "Example own Function";
     }
@@ -25,14 +30,15 @@ class TwigFunctions
         return Session::getUser();
     }
 
-    public function getErrors()
+    public function hasMessage($type): bool
     {
-        return $this->Logger->getErrors();
+        return $this->messenger->has($type);
     }
 
-    public function getSuccesses()
+    public function getMessage($type)
     {
-        return $this->Logger->getSuccesses();
+        return $this->messenger->get($type);
     }
+
 
 }

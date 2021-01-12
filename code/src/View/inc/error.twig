@@ -1,14 +1,26 @@
-{% if getErrors() %}
-<div class="alert alert-danger" role="alert">
-    {% for error in getErrors() %}
-        {{ error }}
-    {% endfor %}
-</div>
+{% if hasMessage('Error') %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {% for error in getMessage('Error') %}
+            {{ error }}
+        {% endfor %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 {% endif %}
-<div class="alert alert-warning alert-dismissible fade show">
-    test
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<div class="alert alert-success">
 
-</div>
+{% if hasMessage('Danger') %}
+    <div class="alert alert-warning alert-dismissible fade show">
+        {% for danger in getMessage('Danger') %}
+            {{ danger }}
+        {% endfor %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endif %}
+
+{% if hasMessage('Success') %}
+    <div class="alert alert-success alert-dismissible fade show">
+        {% for success in getMessage('Success') %}
+            {{ success }}
+        {% endfor %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endif %}

@@ -4,7 +4,8 @@ namespace App\Factory;
 
 use App\Factory\Twig\TwigExtension;
 use App\Factory\Twig\TwigRuntimeLoader;
-use App\Resources\Logger;
+use App\Resources\History;
+use App\Resources\Output\Messenger;
 use DI\Bridge\Slim\Bridge;
 use DI\Container;
 use DI\ContainerBuilder;
@@ -19,7 +20,7 @@ class DI
     /**
      * @var Container
      */
-    private $containerBuilder;
+    private Container $containerBuilder;
 
     public function __construct(ContainerInterface $container)
     {
@@ -43,12 +44,15 @@ class DI
     {
         return
             [
-                Logger::class => factory( function()
+                Messenger::class => factory( function()
                 {
-                    return Logger::create();
+                    return Messenger::create();
                 }),
-
-                TwigRuntimeLoader::class => create()->constructor(Logger::class),
+                History::class => factory(function ()
+                {
+                    return new History();
+                }),
+                TwigRuntimeLoader::class => create()->constructor(Messenger::class),
                 TwigExtension::class => create(),
                 Twig::class => factory(function (ContainerInterface $container, TwigExtension $extension, TwigRuntimeLoader $loader) {
                     $config = $container->get('settings');
