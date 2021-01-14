@@ -1,4 +1,4 @@
-# Use root/example as user/password credentials
+# Use root/123456 as user/password credentials
 version: '3'
 
 services:
@@ -16,6 +16,12 @@ services:
     build:
       context: .
       dockerfile: docker/php/dockerfile
+    volumes:
+      - ./code:/var/www/html
+  php_cli:
+    build:
+      context: .
+      dockerfile: docker/php_cli/dockerfile
     volumes:
       - ./code:/var/www/html
 

@@ -24,7 +24,7 @@ class Settings
                     'path'=> '../src/View',
                     'settings'=>['cache'=>false]
                 ],
-                'db'=>[
+                'DB'=>[
                     'driver'=>'mysql',
                     'host' => 'database',
                     'database' => 'Example',

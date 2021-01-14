@@ -5,6 +5,8 @@ namespace App\Resources;
 
 
 use App\Auth\Session;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class History
 {
@@ -16,10 +18,21 @@ class History
             Session::set(self::history, $urls);
         }
     }
-    public function addUrl($url)
+    public function addUrl(string $url)
     {
-        Session::add(self::history, $url);
+            Session::add(self::history, $url);
     }
+    public function check(ServerRequestInterface $request, ResponseInterface $response)
+    {
+        //make sure request is a GET method
+        if($request->getMethod() == 'GET')
+        {
+            //make sure response comes with successful status code
+            if($response->getStatusCode() >=  200 && $response->getStatusCode() < 300)
+                $this->addUrl($request->getUri()->getPath());
+        }
+    }
+
     public function getUrls()
     {
         return Session::get(self::history);
@@ -30,7 +43,7 @@ class History
         $urls = '';
         foreach(Session::get(self::history) as $url)
         {
-            $urls .= $url . " |";
+            $urls .= $url . " ||";
         }
         return $urls;
     }

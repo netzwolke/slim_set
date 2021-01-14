@@ -32,6 +32,14 @@ class User extends Model
         return false;
 
     }
+    public static function create(array $attributes)
+    {
+        $user = new self();
+        $user->fill($attributes);
+        $user->save();
+
+    }
+
 
 
     public function fill(array $attributes): User

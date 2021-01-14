@@ -1,20 +1,20 @@
-<div class="container">
+<div class="container mt-3">
     {% if hasMessage('Error') %}
-        <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
-            {% for error in getMessage('Error') %}
-                {{ error }}
-            {% endfor %}
+        {% for error in getMessage('Error') %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ error }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+            {% endfor %}
     {% endif %}
 
     {% if hasMessage('Warning') %}
-        <div class="alert alert-warning alert-dismissible fade show">
             {% for warning in getMessage('Warning') %}
-                {{ warning }}
+                    <div class="alert alert-warning alert-dismissible fade show">
+                        {{ warning }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
             {% endfor %}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
     {% endif %}
 
     {% if hasMessage('Success') %}

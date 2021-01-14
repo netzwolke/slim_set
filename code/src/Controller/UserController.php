@@ -21,11 +21,11 @@ class UserController
     public function index($response, Twig $twig, Messenger $messenger, History $history): ResponseInterface
     {
 
-        $messenger->add('Error','Error');
-        $messenger->add(Messenger::Warning,'Danger');
-        $messenger->addSuccess('Last URL: ' . $history->getLastUrl());
+        $messenger->addWarning($history->getLastUrl());
+        $messenger->addError("TEST");
         $messenger->addSuccess(User::all()->toJson());
         $users = User::all();
+
 
         return $twig->render($response, 'user/index.twig', compact("users"));
     }
@@ -36,7 +36,7 @@ class UserController
         $roles = Role::all();
         return $twig->render($response, 'user/edit.twig', compact('user', 'roles'));
     }
-    public function update($request, $response, $id, RouteParserInterface $parser, Messenger $messenger)
+    public function update($request,ResponseInterface $response, $id, RouteParserInterface $parser, Messenger $messenger)
     {
         // Find User
         $user = User::find($id);
@@ -49,10 +49,10 @@ class UserController
         $user->fill($update);
 
         $user->save();
-        $messenger->addSuccess("$user->name updated successfully!");
+        $messenger->addSuccess("User: $user->name updated successfully!");
         //Redirect to Index
 
-        return $response->withHeader('Location', $parser->urlFor('user.index'));
+        return $response->withHeader('Location', $parser->urlFor('user.index'))->withStatus(302);
     }
 
     public function create($response, Twig $twig): ResponseInterface
@@ -64,17 +64,17 @@ class UserController
     public function store(ServerRequestInterface $request, $response, RouteParserInterface $parser): ResponseInterface
     {
         $create = $request->getParsedBody();
-        $password = $create['password'];
-        $create['password'] = password_hash($password, PASSWORD_BCRYPT, ['cost'=>12]);
         User::create($create);
 
-        return $response->withHeader('Location', $parser->urlFor('user.index'));
+        return $response->withHeader('Location', $parser->urlFor('user.index'))->withStatus(302);
     }
 
-    public function delete($request, $response, $id, RouteParserInterface $parser)
+    public function delete($request, $response, $id, Messenger $messenger, RouteParserInterface $parser)
     {
+        $user = User::find($id);
         User::destroy($id);
-        return $response->withHeader('Location', $parser->urlFor('user.index'));
+        $messenger->addSuccess("User: $user->name deleted!");
+        return $response->withHeader('Location', $parser->urlFor('user.index'))->withStatus(302);
     }
 
     public function show($response, $id, Twig $twig)

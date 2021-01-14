@@ -20,7 +20,7 @@ class Model
     public function createEloquent(ContainerInterface $container)
     {
         $config = $container->get('settings');
-        $settings = $config['db'];
+        $settings = $config['DB'];
         $container = new IlluminateContainer();
         $connFactory = new IlluminateConnectionFactory($container);
         $conn = $connFactory->make($settings);
