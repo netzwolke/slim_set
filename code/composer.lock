@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "694dceb38a7b5b0502e3bbac7f9ba620",
+    "content-hash": "ed5e4b39e170acc5d652db2c77a7626f",
     "packages": [
         {
             "name": "cakephp/core",
@@ -388,7 +388,7 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v8.22.0",
+            "version": "v8.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
@@ -442,7 +442,7 @@
         },
         {
             "name": "illuminate/container",
-            "version": "v8.22.0",
+            "version": "v8.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
@@ -493,7 +493,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v8.22.0",
+            "version": "v8.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -541,16 +541,16 @@
         },
         {
             "name": "illuminate/database",
-            "version": "v8.22.0",
+            "version": "v8.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "c6ad4bdfa94c259d5ece11c523172238f01dfa00"
+                "reference": "4a2040c25d28315be005784a9ea4c2efb2a95a27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/c6ad4bdfa94c259d5ece11c523172238f01dfa00",
-                "reference": "c6ad4bdfa94c259d5ece11c523172238f01dfa00",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/4a2040c25d28315be005784a9ea4c2efb2a95a27",
+                "reference": "4a2040c25d28315be005784a9ea4c2efb2a95a27",
                 "shasum": ""
             },
             "require": {
@@ -605,11 +605,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-01-12T15:30:54+00:00"
+            "time": "2021-01-13T13:37:56+00:00"
         },
         {
             "name": "illuminate/macroable",
-            "version": "v8.22.0",
+            "version": "v8.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -655,16 +655,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v8.22.0",
+            "version": "v8.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "880b330c516f3e5cd9a096b9f476e3c82db2eb93"
+                "reference": "6a516676a83d2a73c46eaf7907f730e86ef60da5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/880b330c516f3e5cd9a096b9f476e3c82db2eb93",
-                "reference": "880b330c516f3e5cd9a096b9f476e3c82db2eb93",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/6a516676a83d2a73c46eaf7907f730e86ef60da5",
+                "reference": "6a516676a83d2a73c46eaf7907f730e86ef60da5",
                 "shasum": ""
             },
             "require": {
@@ -718,73 +718,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-01-12T15:30:54+00:00"
-        },
-        {
-            "name": "lulco/phoenix",
-            "version": "1.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lulco/phoenix.git",
-                "reference": "821e0d97563c1ee614fd8eda64109cb02fba0112"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lulco/phoenix/zipball/821e0d97563c1ee614fd8eda64109cb02fba0112",
-                "reference": "821e0d97563c1ee614fd8eda64109cb02fba0112",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-pdo": "*",
-                "php": ">= 7.1",
-                "symfony/console": "^3.1|^4.0|^5.0",
-                "symfony/finder": "^3.1|^4.0|^5.0"
-            },
-            "conflict": {
-                "symfony/console": "3.4.31|4.3.4"
-            },
-            "require-dev": {
-                "nette/neon": "^2.3|^3.0",
-                "phpunit/phpunit": ">7.2",
-                "ramsey/uuid": "^3.7|^4.0",
-                "symfony/yaml": "^3.1|^4.0|^5.0"
-            },
-            "suggest": {
-                "nette/neon": "Allows use *.neon file as config file and class Phoenix\\Config\\Parser\\NeonConfigParser to parse it",
-                "symfony/yaml": "Allows use *.yml / *.yaml file as config file and class Phoenix\\Config\\Parser\\YamlConfigParser to parse it"
-            },
-            "bin": [
-                "bin/phoenix"
-            ],
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Database Migrations for PHP",
-            "keywords": [
-                "Multiple folders",
-                "create",
-                "database",
-                "dump",
-                "migrate",
-                "migrations",
-                "php",
-                "query builder",
-                "rollback",
-                "status"
-            ],
-            "support": {
-                "issues": "https://github.com/lulco/phoenix/issues",
-                "source": "https://github.com/lulco/phoenix/tree/1.4.0"
-            },
-            "time": "2020-12-01T12:50:28+00:00"
+            "time": "2021-01-13T13:37:56+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -2276,67 +2210,6 @@
                 }
             ],
             "time": "2020-11-30T17:05:38+00:00"
-        },
-        {
-            "name": "symfony/finder",
-            "version": "v5.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/finder.git",
-                "reference": "0b9231a5922fd7287ba5b411893c0ecd2733e5ba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/0b9231a5922fd7287ba5b411893c0ecd2733e5ba",
-                "reference": "0b9231a5922fd7287ba5b411893c0ecd2733e5ba",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Finder\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Finder Component",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/finder/tree/v5.2.1"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2020-12-08T17:02:38+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",

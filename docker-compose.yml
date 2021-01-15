@@ -18,7 +18,9 @@ services:
       dockerfile: docker/php/dockerfile
     volumes:
       - ./code:/var/www/html
+
   php_cli:
+    user: 1000:1000
     build:
       context: .
       dockerfile: docker/php_cli/dockerfile
@@ -37,7 +39,3 @@ services:
       MYSQL_ROOT_PASSWORD: 123456
 
 
-
-
-volumes:
-  data: {}

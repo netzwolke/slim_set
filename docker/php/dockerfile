@@ -1,6 +1,6 @@
 FROM php:7.4-fpm-alpine
-RUN apk add icu-dev
-RUN docker-php-ext-install -j$(nproc) iconv \
+
+RUN apk add icu-dev && docker-php-ext-install -j$(nproc) iconv \
 pdo \
 pdo_mysql \
 mysqli \
