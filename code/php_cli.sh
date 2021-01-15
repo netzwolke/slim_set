@@ -1,4 +1,4 @@
 #!/bin/bash
 
 
-docker-compose run php_cli $@
+docker-compose run --rm php_cli $@

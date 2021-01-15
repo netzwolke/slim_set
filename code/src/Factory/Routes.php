@@ -6,11 +6,15 @@ namespace App\Factory;
 use App\Auth\Auth;
 use App\Controller\AuthController;
 use App\Controller\RoleController;
+use App\Controller\SeederController;
 use App\Controller\UserController;
 use App\Middleware\AdminMiddleware;
 use App\Resources\Redirect;
+use phpDocumentor\Reflection\Types\ClassString;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface;
 use Slim\App;
+use Slim\Interfaces\RouteCollectorProxyInterface;
 use Slim\Interfaces\RouteParserInterface;
 use Slim\Routing\RouteCollectorProxy;
 
@@ -31,9 +35,18 @@ class Routes
     public function setRoutes(App $app)
     {
 
+        $app->get('/name/{name}', function(ResponseInterface $response, $name) {
+           $response->getBody()->write("Hello dear $name");
+           return $response;
+        });
+
         $app->get('/', function ($response, App $app) {
             return $response->withHeader('Location', $app->getRouteCollector()->getRouteParser()->urlFor('user.index'));
         })->setName('home');
+
+        //Seeder routes
+
+        $app->put('/seeder/{id}/seed', [SeederController::class, 'seed'])->setName('seeder.seed');
 
 
         //Auth routes
@@ -42,13 +55,12 @@ class Routes
 
         //role routes
         $app->group('/admin', function (RouteCollectorProxy $view) {
-            $view->get('/role', [RoleController::class, 'index'])->setName('role.index');
-            $view->get('/role/create', [RoleController::class, 'create'])->setName('role.create');
-            $view->get('/role/{id}', [RoleController::class, 'show'])->setName('role.show');
-            $view->get('/role/{id}/edit', [RoleController::class, 'edit'])->setName('role.edit');
-            $view->put('/role/{id}', [RoleController::class, 'update'])->setName('role.update');
-            $view->post('/role', [RoleController::class, 'store'])->setName('role.store');
-            $view->delete('/role/{id}', [RoleController::class, 'delete'])->setName('role.delete');
+            $this->resources($view, '/seeder', SeederController::class, 'admin.seeder');
+
+            $this->resources($view, '/role', RoleController::class, 'role');
+
+
+
         })->add(AdminMiddleware::class);
 
         //user routes
@@ -59,5 +71,27 @@ class Routes
         $app->put('/user/{id}', [UserController::class, 'update'])->setName('user.update');
         $app->post('/user', [UserController::class, 'store'])->setName('user.store');
         $app->delete('/user/{id}', [UserController::class, 'delete'])->setName('user.delete');
+    }
+    public function resources(RouteCollectorProxyInterface $app, string $pattern, string $callable, string $name = null)
+    {
+        if(is_null($name))
+        {
+            $name = $pattern;
+        }
+
+        if(!(strpos($name, '/') === false)){
+            $name_ref = explode('/', $name);
+            $name_ref = array_slice($name_ref, 1);
+            $name = implode('.', $name_ref);
+        }
+
+
+        $app->get($pattern, [$callable, 'index'])->setName($name . '.index');
+        $app->get($pattern . '/create', [$callable, 'create'])->setName($name . '.create');
+        $app->get($pattern . '/{id}/edit', [$callable,'edit'])->setName($name . '.edit');
+        $app->get($pattern . '/{id}', [$callable, 'show'])->setName($name . '.show');
+        $app->put($pattern . '/{id}', [$callable, 'update'])->setName($name . '.update');
+        $app->post($pattern, [$callable, 'store'])->setName($name . '.store');
+        $app->delete($pattern . '/{id}', [$callable, 'delete'])->setName($name . '.delete');
     }
 }
