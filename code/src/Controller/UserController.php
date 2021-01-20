@@ -23,7 +23,7 @@ class UserController
 
         $messenger->addWarning($history->getLastUrl());
         $messenger->addError("TEST");
-        $messenger->addSuccess(User::all()->toJson());
+        //$messenger->addSuccess(User::all()->toJson());
         $users = User::all();
 
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 
+use Slim\Interfaces\RouteParserInterface;
 use Slim\Views\Twig;
 
 class SeederController
@@ -27,12 +28,17 @@ class SeederController
 
         return $twig->render($response, 'seeder/index.twig',compact('test'));
     }
-    public function seed()
+    public function seed($request, $response, RouteParserInterface $parser)
     {
-
+        $create = $request->getParsedBody();
+        $config = Config::create();
+        $config->name = $create['name'];
+        $config->settings = $create['settings'];
+        $config->save();
+        return $response->withStatus(503)->withHeader('Location', $parser->urlFor("home"));
     }
 
-    public function update()
+    public function admin()
     {
 
     }

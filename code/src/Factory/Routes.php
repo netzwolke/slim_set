@@ -46,7 +46,7 @@ class Routes
 
         //Seeder routes
 
-        $app->put('/seeder/{id}/seed', [SeederController::class, 'seed'])->setName('seeder.seed');
+        $app->get('/seeder', [SeederController::class, 'index'])->setName('seeder.index');
 
 
         //Auth routes

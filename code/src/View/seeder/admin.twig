@@ -1,0 +1,43 @@
+{% extends 'layout/app.twig' %}
+
+{% block body %}
+    <br><br>
+    <div class="container">
+
+        <H1>User Index</H1>
+
+
+
+
+        <table class="table">
+
+            <thead class="thead-light">
+            <tr>
+                <th>Name</th>
+                <th>Password</th>
+                <th>Role</th>
+                <th>Options</th>
+            </tr>
+            </thead>
+            <tr>
+                <form method="POST" autocomplete="off">
+                    <td><input class="form-control" name='name' placeholder="Name" autocomplete="off"></td>
+                    <td><input class="form-control" name="password" type="password" autocomplete="off"></td>
+                    <td>
+                        <select class="form-select" name="role_id">
+                            <option selected>Select Role</option>
+                            {% for role in roles %}
+                                <option value="{{ role.id }}">{{ role.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td><button type="submit" class="btn btn-success"  formaction="{{ url_for('user.store')}}">Create</button>                  </td>
+                </form>
+            </tr>
+
+        </table>
+
+        <a class="btn btn-primary" href="{{ url_for('user.index') }}">Back</a>
+    </div>
+
+{% endblock %}

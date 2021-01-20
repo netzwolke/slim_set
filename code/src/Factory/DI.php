@@ -6,6 +6,7 @@ use App\Factory\Twig\TwigExtension;
 use App\Factory\Twig\TwigRuntimeLoader;
 use App\Resources\History;
 use App\Resources\Output\Messenger;
+use App\Resources\Seeder;
 use DI\Bridge\Slim\Bridge;
 use DI\Container;
 use DI\ContainerBuilder;
@@ -62,6 +63,9 @@ class DI
                     $twig->addRuntimeLoader($loader);
                     $twig->addExtension($extension);
                     return $twig;
+                }),
+                Seeder::class => factory( function (){
+                    return new Seeder();
                 }),
 
 

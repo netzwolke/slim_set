@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use App\Auth\Session;
+use Slim\Interfaces\RouteParserInterface;
 
 class SessionMiddleware
 {
@@ -34,7 +35,6 @@ class SessionMiddleware
 
         //first Handle the Request
         $response = $handler->handle($request);
-
         //save Browsing history
         $this->history->check($request, $response);
 

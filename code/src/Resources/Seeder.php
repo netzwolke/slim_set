@@ -4,6 +4,8 @@
 namespace App\Resources;
 
 
+use App\Model\Config;
+
 class Seeder
 {
     public function __construct()
@@ -13,9 +15,10 @@ class Seeder
 
     public function isNeeded()
     {
-        if(! Role::all())
+        if(! Config::all()->isEmpty())
         {
-
+            return 0;
         }
+        return 1;
     }
 }

@@ -4,6 +4,7 @@
 namespace App\Factory;
 
 
+use App\Middleware\SeederMiddleware;
 use App\Middleware\SessionMiddleware;
 use Slim\App;
 use Slim\Middleware\MethodOverrideMiddleware;
@@ -18,6 +19,16 @@ class Middleware
     }
     public function addMiddleware(App $app)
     {
+
+        //Add SeederMiddleware before routing
+        $app->add($this->createSeederMiddleware());
+
+        //Add TwigMiddleware
+        $app->add($this->createTwigMiddleware($app));
+
+        //Add SessionMiddleware
+        $app->add($this->createSessionMiddleware());
+
         //Add RoutingMiddleware before MethodOverrideMiddleware so the method is is not overrode before routing
         $app->addRoutingmiddleware();
 
@@ -26,14 +37,12 @@ class Middleware
         // PUT request
         $app->add($this->createMethodOverrideMiddleware());
 
-        //Add TwigMiddleware
-        $app->add($this->createTwigMiddleware($app));
-
-        //Add SessionMiddleware
-        $app->add($this->createSessionMiddleware());
-
-        //Add ErrorMiddleware
+        //Add ErrorMiddleware // this will be the first, bottom to top
         $app->addErrorMiddleware(true, true, true);
+
+
+
+
     }
     public function createMethodOverrideMiddleware(): MethodOverrideMiddleware
     {
@@ -48,5 +57,10 @@ class Middleware
     public function createSessionMiddleware()
     {
         return SessionMiddleware::class;
+    }
+
+    public function createSeederMiddleware()
+    {
+        return SeederMiddleware::class;
     }
 }

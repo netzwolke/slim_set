@@ -33,9 +33,11 @@ services:
         dockerfile: docker/database/dockerfile
     volumes:
       - ./database:/var/lib/mysql:rw
+      - ./docker/database/config:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: Example
 
 

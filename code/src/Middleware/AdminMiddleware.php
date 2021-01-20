@@ -12,6 +12,7 @@ use Slim\Routing\RouteContext;
 
 class AdminMiddleware
 {
+
     public function __invoke(Request $request, RequestHandler $handler):Response
     {
 
