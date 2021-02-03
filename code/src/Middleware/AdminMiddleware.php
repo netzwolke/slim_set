@@ -16,7 +16,8 @@ class AdminMiddleware
     public function __invoke(Request $request, RequestHandler $handler):Response
     {
 
-        if(Auth::isAdmin())
+        $noAdmin = $request->getAttribute('noAdmin');
+        if(Auth::isAdmin() || $noAdmin)
         {
             return $handler->handle($request);;
         }

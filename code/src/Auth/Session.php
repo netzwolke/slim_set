@@ -64,11 +64,13 @@ class Session
     }
     public static function has($name): bool
     {
-        if(isset($_SESSION[$name]))
+        if (session_status() === PHP_SESSION_ACTIVE)
         {
-            return true;
-        } else {
-            return false;
+            if(array_key_exists($name, $_SESSION))
+            {
+                return true;
+            }
         }
+        return false;
     }
 }

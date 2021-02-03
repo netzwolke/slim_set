@@ -15,10 +15,10 @@ class Seeder
 
     public function isNeeded()
     {
-        if(! Config::all()->isEmpty())
+        if(Config::all()->isEmpty())
         {
-            return 0;
+            return 1;
         }
-        return 1;
+        return 0;
     }
 }

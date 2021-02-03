@@ -4,11 +4,9 @@
 namespace App\Factory;
 
 
-use Illuminate\Container\Container as IlluminateContainer;
-use Illuminate\Database\ConnectionResolver;
-use Illuminate\Database\Connectors\ConnectionFactory as IlluminateConnectionFactory;
-use Illuminate\Database\Eloquent\Model as IlluminateModel;
+use Illuminate\Database\Capsule\Manager;
 use Psr\Container\ContainerInterface;
+
 
 class Model
 {
@@ -20,13 +18,21 @@ class Model
     public function createEloquent(ContainerInterface $container)
     {
         $config = $container->get('settings');
-        $settings = $config['DB'];
-        $container = new IlluminateContainer();
-        $connFactory = new IlluminateConnectionFactory($container);
-        $conn = $connFactory->make($settings);
-        $resolver = new ConnectionResolver();
-        $resolver->addConnection('default', $conn);
-        $resolver->setDefaultConnection('default');
-        IlluminateModel::setConnectionResolver($resolver);
+        $env = $config['env'];
+        $databases = $config['db'];
+
+        $capsule = new Manager();
+        foreach ($databases as $key => $database)
+        {
+
+            if($key === $env)
+            {
+                $capsule->addConnection($database, 'default');
+            }
+            $capsule->addConnection($database, $key);
+
+        }
+        $capsule->setAsGlobal();
+        $capsule->bootEloquent();
     }
 }

@@ -5,8 +5,7 @@
         "php-di/slim-bridge": "^3.1",
         "slim/twig-view": "^3.0",
         "illuminate/database": "^8.20",
-        "vlucas/valitron": "^1.4",
-        "robmorgan/phinx": "^0.12.4"
+        "vlucas/valitron": "^1.4"
     },
 
     "autoload": {

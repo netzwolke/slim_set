@@ -21,7 +21,6 @@ class Middleware
     {
 
         //Add SeederMiddleware before routing
-        $app->add($this->createSeederMiddleware());
 
         //Add TwigMiddleware
         $app->add($this->createTwigMiddleware($app));
@@ -36,9 +35,10 @@ class Middleware
         // e.g. POST request with _METHOD parameter PUT to
         // PUT request
         $app->add($this->createMethodOverrideMiddleware());
+        $app->add($this->createSeederMiddleware());
 
         //Add ErrorMiddleware // this will be the first, bottom to top
-        $app->addErrorMiddleware(true, true, true);
+        $app->addErrorMiddleware(true, true, false);
 
 
 
