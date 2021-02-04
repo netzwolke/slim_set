@@ -18,7 +18,7 @@ class Message implements OutputMessageInterface
         ];
     }
 
-    public function add($type, $message)
+    public  function add($type, $message)
     {
         $this->Messages[$type] [] =  $message;
     }

@@ -9,6 +9,7 @@ use App\Controller\RoleController;
 use App\Controller\SeederController;
 use App\Controller\UserController;
 use App\Middleware\AdminMiddleware;
+use App\Resources\Output\Messenger;
 use App\Resources\Redirect;
 use phpDocumentor\Reflection\Types\ClassString;
 use Psr\Container\ContainerInterface;
@@ -55,9 +56,9 @@ class Routes
 
         //role routes
         $app->group('/admin', function (RouteCollectorProxy $view) {
-            $this->resources($view, '/seeder', SeederController::class, 'admin.seeder');
+            $this->resources($view, '/seeder', SeederController::class, ['name' => 'admin.seeder','only'=>['index','show']]);
 
-            $this->resources($view, '/role', RoleController::class, 'role');
+            $this->resources($view, '/role', RoleController::class, ['name' => 'role']);
 
 
 
@@ -72,8 +73,31 @@ class Routes
         $app->post('/user', [UserController::class, 'store'])->setName('user.store');
         $app->delete('/user/{id}', [UserController::class, 'delete'])->setName('user.delete');
     }
-    public function resources(RouteCollectorProxyInterface $app, string $pattern, string $callable, string $name = null)
+    public function resources(RouteCollectorProxyInterface $app, string $pattern, string $callable, array $options = null)
     {
+        $resources = [
+            'index' => ['','get'],
+            'create' => ['/create','get'],
+            'edit' => ['/{id}/edit','get'],
+            'show' => ['/{id}','get'],
+            'update' => ['/{edit}','put'],
+            'store' => ['','post'],
+            'delete' => ['/{id}','delete']
+        ];
+        $routes = [
+            'index',
+            'create',
+            'edit',
+            'show',
+            'update',
+            'store',
+            'delete',
+
+        ];
+
+        $name = isset($options['name']) ? $options['name'] : null;
+        $only = isset($options['only']) ? $options['only'] : $routes;
+
         if(is_null($name))
         {
             $name = $pattern;
@@ -85,7 +109,11 @@ class Routes
             $name = implode('.', $name_ref);
         }
 
-
+        foreach ($only as $route)
+        {
+            call_user_func([$app, $resources[$route][1]], $pattern . $resources[$route][0], [$callable, $route])->setName($name . '.' . $route);
+        }
+        /* // Style
         $app->get($pattern, [$callable, 'index'])->setName($name . '.index');
         $app->get($pattern . '/create', [$callable, 'create'])->setName($name . '.create');
         $app->get($pattern . '/{id}/edit', [$callable,'edit'])->setName($name . '.edit');
@@ -93,5 +121,6 @@ class Routes
         $app->put($pattern . '/{id}', [$callable, 'update'])->setName($name . '.update');
         $app->post($pattern, [$callable, 'store'])->setName($name . '.store');
         $app->delete($pattern . '/{id}', [$callable, 'delete'])->setName($name . '.delete');
+        */
     }
 }
