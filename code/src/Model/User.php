@@ -12,13 +12,10 @@ class User extends Model
 
     protected $guarded = [];
 
-    public $timestamps;
-
-
 
     public function role(): BelongsTo
     {
-        return $this->belongsTo(Role::class, 'role_id', 'id');
+        return $this->belongsTo(Role::class, 'roleId', 'id');
     }//end role
 
     public function makePassword($password = null)

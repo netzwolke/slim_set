@@ -11,12 +11,7 @@ class TwigFunctions
     /**
      * @var Messenger
      */
-    private Messenger $messenger;
 
-    public function __construct(Messenger $messenger)
-    {
-        $this->messenger = $messenger;
-    }
     public function example(): string
     {
         return "Example own Function";
@@ -32,13 +27,13 @@ class TwigFunctions
 
     public function hasMessage($type): bool
     {
-        return $this->messenger->has($type);
+        return Messenger::has($type);
     }
 
     public function getMessage($type)
     {
-        $message =  $this->messenger->get($type);
-        $this->messenger->clear($type);
+        $message =  Messenger::get($type);
+        Messenger::clear($type);
         return $message;
     }
 

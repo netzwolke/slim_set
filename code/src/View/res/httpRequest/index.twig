@@ -1,0 +1,44 @@
+{% extends 'layout/app.twig' %}
+
+
+{% block body %}
+
+    <div class="container">
+
+        <H1>Users</H1>
+
+
+
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th>Name</th>
+                <th>URL</th>
+                <th>URI</th>
+                <th>Options</th>
+            </tr>
+            </thead>
+            {% for request in requests %}
+                <tr>
+                    <td><a href="{{ url_for('httpRequest.show',{'id':request.id}) }}">{{ request.name }}</a></td>
+                    <td>{{ request.url }}</td>
+                    <td> {{ request.uri}} </td>
+                    <td>
+                        <form action="{{ url_for('httpRequest.delete',{'id':request.id}) }}" method="POST">
+                            <a class="btn btn-primary" href="{{ url_for('httpRequest.edit',{'id':request.id}) }}">Edit</a>
+                            <button type="submit" class="btn btn-danger">X</button>
+                            <input type="hidden" name="_METHOD" value="DELETE">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </table>
+        <a class="btn btn-secondary" href="{{ url_for('httpRequest.create') }}">New</a>
+
+
+
+
+    </div>
+
+{% endblock %}

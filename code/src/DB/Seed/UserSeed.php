@@ -12,15 +12,15 @@ class UserSeed implements SeedInterface
        return [
            [
                'name'=> 'root',
-               'password' => '$2y$12$eRjffdn.KuPHDvTdZCAXc..LOfeMbMIX1rt7HjTbKm\/9CsJoedyky',
+               'password' => 'toor',
                'roleId' => 1
            ], [
                'name'=>'user',
-               'password'=>'$2y$12$h7s8D372V2BXGbbZY5RlUe8N9C.iQNQiEDkYJXKnaqO00i1UIg9gK',
+               'password'=>'user',
                'roleId' => 2
            ], [
                'name'=>'guest',
-               'password'=>'$2y$12$lOM8elzwuL\/BN81xbEOrmupFXhPFPyqsdMGsfsvWnKTILwG\/Ks8Oy',
+               'password'=> 'guest',
                'roleId'=>3,
            ]
        ];

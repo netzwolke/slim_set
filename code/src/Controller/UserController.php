@@ -18,15 +18,10 @@ class UserController
 
 
 
-    public function index($response, Twig $twig, Messenger $messenger, History $history): ResponseInterface
+    public function index($response, Twig $twig): ResponseInterface
     {
 
-        $messenger->addWarning($history->getLastUrl());
-        $messenger->addError("TEST");
-        //$messenger->addSuccess(User::all()->toJson());
         $users = User::all();
-
-
         return $twig->render($response, 'user/index.twig', compact("users"));
     }
 
@@ -36,7 +31,7 @@ class UserController
         $roles = Role::all();
         return $twig->render($response, 'user/edit.twig', compact('user', 'roles'));
     }
-    public function update($request,ResponseInterface $response, $id, RouteParserInterface $parser, Messenger $messenger)
+    public function update($request,ResponseInterface $response, $id, RouteParserInterface $parser)
     {
         // Find User
         $user = User::find($id);
@@ -49,7 +44,6 @@ class UserController
         $user->fill($update);
 
         $user->save();
-        $messenger->addSuccess("User: $user->name updated successfully!");
         //Redirect to Index
 
         return $response->withHeader('Location', $parser->urlFor('user.index'))->withStatus(302);

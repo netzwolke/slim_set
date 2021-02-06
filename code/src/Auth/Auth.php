@@ -4,6 +4,7 @@
 namespace App\Auth;
 
 use App\Model\User;
+use App\Resources\Output\Messenger;
 
 class Auth
 {

@@ -15,6 +15,9 @@
                 <li class="nav-item">
                     <a class="nav-link {% if url_for('admin.seeder.index') in current_url() %} active {% endif %}" aria-current="page" href="{{ url_for('admin.seeder.index') }}" >Seeder</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if url_for('httpRequest.index') in current_url() %} active {% endif %}" aria-current="page" href="{{ url_for('httpRequest.index') }}" >API</a>
+                </li>
 
             </ul>
 

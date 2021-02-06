@@ -45,15 +45,12 @@ class DI
     {
         return
             [
-                Messenger::class => factory( function()
-                {
-                    return Messenger::create();
-                }),
+
                 History::class => factory(function ()
                 {
                     return new History();
                 }),
-                TwigRuntimeLoader::class => create()->constructor(Messenger::class),
+                TwigRuntimeLoader::class => create(),
                 TwigExtension::class => create(),
                 Twig::class => factory(function (ContainerInterface $container, TwigExtension $extension, TwigRuntimeLoader $loader) {
                     $config = $container->get('settings');

@@ -23,7 +23,7 @@
                             <td><input class="form-control" name="password" type="password" placeholder="..."></td>
 
                             <td>
-                                <select class="form-select" name="role_id">
+                                <select class="form-select" name="roleId">
                                     {% for role in roles %}
                                         {% if role.id == user.role.id %}
                                             <option value="{{ role.id }}" selected>{{ role.name }}</option>
@@ -41,7 +41,7 @@
             </table>
             <input type="hidden" value="PUT" name='_METHOD'>
         </form>
-<a href="{{ url_for('user.index') }}" class="btn btn-primary mt-2">Back</a>
+        <a href="{{ url_for('user.index') }}" class="btn btn-primary mt-2">Back</a>
 
 
     </div>

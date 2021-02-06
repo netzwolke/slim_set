@@ -10,11 +10,11 @@ class Messenger implements OutputMessageInterface
 {
 
 
-    public function __construct(Message $message)
+    public function check()
     {
         if(!Session::has(self::key))
         {
-            Session::set(self::key, $message);
+            Session::set(self::key, new Message());
 
         }
     }
@@ -23,32 +23,30 @@ class Messenger implements OutputMessageInterface
      *
      * @return Messenger
      */
-    public static function create(): self
+
+    public  static function addError($message)
     {
-        return new self(new Message());
+        self::add(self::Error, $message);
+    }
+    public static function addWarning($message)
+    {
+        self::add(self::Warning, $message);
+    }
+    public static function addSuccess($message)
+    {
+        self::add(self::Success, $message);
     }
 
-    public function addError($message)
+    public static function add($type, $message)
     {
-        $this->add(self::Error, $message);
-    }
-    public function addWarning($message)
-    {
-        $this->add(self::Warning, $message);
-    }
-    public function addSuccess($message)
-    {
-        $this->add(self::Success, $message);
-    }
-
-    public function add($type, $message)
-    {
+        self::check();
         $MessageClass = Session::get(self::key);
         $MessageClass->add($type, $message);
     }
 
-    public function get($type)
+    public static function get($type)
     {
+        self::check();
         //Get Message in Session
         $message =  Session::get(self::key);
 
@@ -56,8 +54,9 @@ class Messenger implements OutputMessageInterface
         return $message->get($type);
     }
 
-    public function has($type): bool
+    public static function has($type): bool
     {
+        self::check();
         //Get Message in Session
         $message =  Session::get(self::key);
 
@@ -71,8 +70,9 @@ class Messenger implements OutputMessageInterface
 
     }
 
-    public function clear($type)
+    public static function clear($type)
     {
+        self::check();
         //get Message in Session
         $message = Session::get(self::key);
 

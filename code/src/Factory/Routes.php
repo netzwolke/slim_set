@@ -3,16 +3,14 @@
 
 namespace App\Factory;
 
-use App\Auth\Auth;
+use App\Controller\API\ApiRoleController;
 use App\Controller\AuthController;
+use App\Controller\EndpointController;
+use App\Controller\HttpRequestController;
 use App\Controller\RoleController;
 use App\Controller\SeederController;
 use App\Controller\UserController;
 use App\Middleware\AdminMiddleware;
-use App\Resources\Output\Messenger;
-use App\Resources\Redirect;
-use phpDocumentor\Reflection\Types\ClassString;
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface;
@@ -36,9 +34,9 @@ class Routes
     public function setRoutes(App $app)
     {
 
-        $app->get('/name/{name}', function(ResponseInterface $response, $name) {
-           $response->getBody()->write("Hello dear $name");
-           return $response;
+        $app->get('/name/{name}', function (ResponseInterface $response, $name) {
+            $response->getBody()->write("Hello dear $name");
+            return $response;
         });
 
         $app->get('/', function ($response, App $app) {
@@ -56,23 +54,25 @@ class Routes
 
         //role routes
         $app->group('/admin', function (RouteCollectorProxy $view) {
-            $this->resources($view, '/seeder', SeederController::class, ['name' => 'admin.seeder','only'=>['index','show']]);
-
-            $this->resources($view, '/role', RoleController::class, ['name' => 'role']);
-
+            $this->resources($view, '/seeder', SeederController::class, ['name' => 'admin.seeder', 'only' => ['index', 'show']]);
 
 
         })->add(AdminMiddleware::class);
+        $this->resources($app, '/role', RoleController::class, ['name' => 'role']);
+        $this->resources($app, '/user', UserController::class, ['name' => 'user']);
+        $this->resources($app, '/api/role', ApiRoleController::class, ['name' => 'role']);
+        $this->resources($app, '/endpoint', EndpointController::class, ['name' => 'endpoint']);
+        $this->resources($app, '/requests', HttpRequestController::class, ['name' => 'httpRequest']);
 
-        //user routes
-        $app->get('/user', [UserController::class, 'index'])->setName('user.index');
-        $app->get('/user/create', [UserController::class,'create'])->setName('user.create');
-        $app->get('/user/{id}/edit', [UserController::class,'edit'])->setName('user.edit');
-        $app->get('/user/{id}', [UserController::class, 'show'])->setName('user.show');
-        $app->put('/user/{id}', [UserController::class, 'update'])->setName('user.update');
-        $app->post('/user', [UserController::class, 'store'])->setName('user.store');
-        $app->delete('/user/{id}', [UserController::class, 'delete'])->setName('user.delete');
+
+
+
+
+
+
+
     }
+
     public function resources(RouteCollectorProxyInterface $app, string $pattern, string $callable, array $options = null)
     {
         $resources = [
@@ -80,7 +80,7 @@ class Routes
             'create' => ['/create','get'],
             'edit' => ['/{id}/edit','get'],
             'show' => ['/{id}','get'],
-            'update' => ['/{edit}','put'],
+            'update' => ['/{id}','put'],
             'store' => ['','post'],
             'delete' => ['/{id}','delete']
         ];

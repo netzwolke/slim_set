@@ -1,0 +1,16 @@
+{% extends 'layout/app.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <pre>{{ curl_result | json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+
+</div>
+
+    <script>
+        var jsonString = '{{ curl_result | raw }}';
+        var jsonPretty = JSON.stringify(JSON.parse(jsonString),null,2);
+        console.log(jsonPretty);
+    </script>
+
+{% endblock %}

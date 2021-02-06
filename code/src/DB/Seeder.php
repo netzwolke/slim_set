@@ -4,6 +4,8 @@
 namespace App\DB;
 
 
+use App\DB\Migration\HttpRequestMigration;
+use App\DB\Seed\HttpRequestSeed;
 use App\DB\Seed\RoleSeed;
 use App\DB\Seed\UserSeed;
 
@@ -21,7 +23,8 @@ class Seeder
     {
         return [
             RoleSeed::class,
-            UserSeed::class
+            UserSeed::class,
+            HttpRequestSeed::class,
         ];
     }
 }

@@ -4,6 +4,7 @@
 namespace App\DB;
 
 
+use App\DB\Migration\HttpRequestMigration;
 use App\DB\Migration\RoleMigration;
 use App\DB\Migration\UserMigration;
 
@@ -20,7 +21,8 @@ class Migrator
     {
         return [
             RoleMigration::class,
-            UserMigration::class
+            UserMigration::class,
+            HttpRequestMigration::class,
 
         ];
     }

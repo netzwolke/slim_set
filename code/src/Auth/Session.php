@@ -56,7 +56,11 @@ class Session
     }
     public static function get($name)
     {
-        return $_SESSION[$name];
+        if(self::has($name))
+        {
+            return $_SESSION[$name];
+        }
+
     }
     public static function remove($name)
     {

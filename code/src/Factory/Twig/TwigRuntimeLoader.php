@@ -12,12 +12,8 @@ class TwigRuntimeLoader implements RuntimeLoaderInterface
     /**
      * @var Messenger
      */
-    private Messenger $messageOutput;
 
-    public function __construct(Messenger $messageOutput)
-    {
-        $this->messageOutput = $messageOutput;
-    }
+
 
     /**
      * @inheritDoc
@@ -25,7 +21,7 @@ class TwigRuntimeLoader implements RuntimeLoaderInterface
     public function load(string $class)
     {
         if (TwigFunctions::class === $class) {
-            return new $class($this->messageOutput);
+            return new $class();
         }
     }
 }
