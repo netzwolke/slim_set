@@ -1,4 +1,2 @@
 <?php
-
-
-return \App\DB\DatabaseInterface::ENV_STG;
+return \App\DB\DatabaseInterface::ENV_PROD;

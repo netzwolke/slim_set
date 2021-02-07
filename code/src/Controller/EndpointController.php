@@ -40,4 +40,5 @@ class EndpointController
 
         return $twig->render($response, 'res/endpoint/index.twig', compact('message', 'curl_result'));
     }
+
 }

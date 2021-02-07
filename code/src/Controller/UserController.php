@@ -18,11 +18,10 @@ class UserController
 
 
 
-    public function index($response, Twig $twig): ResponseInterface
+    public function index(ServerRequestInterface $request, $response, Twig $twig): ResponseInterface
     {
 
         $users = User::all();
-        Messenger::addSuccess(include_once('../env'));
         return $twig->render($response, 'user/index.twig', compact("users"));
     }
 

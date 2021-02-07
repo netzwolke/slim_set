@@ -1,5 +1,6 @@
 PHP = php
 COMPOSER = composer.phar
+CODE = code
 RUN = docker-compose run --rm php_cli
 
 install:
@@ -7,7 +8,7 @@ install:
 
 stage:
 	make install
-	ln code/staging.php code/env -f
+	ln $(CODE)/staging.php code/env -f
 prod:
 	make install
-	ln code/production.php code/env -f
+	ln $(CODE)/production.php code/env -f

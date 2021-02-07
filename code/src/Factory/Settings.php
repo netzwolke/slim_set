@@ -6,8 +6,6 @@ namespace App\Factory;
 
 
 use App\DB\DatabaseInterface;
-use App\Resources\Message;
-use Psr\Container\ContainerInterface;
 
 class Settings
 {
@@ -25,7 +23,7 @@ class Settings
                     'path'=> '../src/View',
                     'settings'=>['cache'=>false]
                 ],
-                'env' => DatabaseInterface::ENV_STG,
+                'env' => include_once('../env'),
                 'db' => [
                     DatabaseInterface::ENV_STG =>[
                             'driver'=>'mysql',
@@ -40,7 +38,7 @@ class Settings
                     DatabaseInterface::ENV_PROD =>[
                         'driver'=>'mysql',
                         'host' => 'database',
-                        'database' => DatabaseInterface::ENV_PROD,
+                        'database' => DatabaseInterface::DB_PROD,
                         'username' => 'root',
                         'password' => '123456',
                         'charset'   => 'utf8',
