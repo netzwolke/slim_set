@@ -22,6 +22,7 @@ class UserController
     {
 
         $users = User::all();
+        Messenger::addSuccess(include_once('../env'));
         return $twig->render($response, 'user/index.twig', compact("users"));
     }
 

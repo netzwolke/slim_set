@@ -6,4 +6,3 @@ pdo_mysql \
 mysqli \
 intl
 
-CMD php composer.phar install
